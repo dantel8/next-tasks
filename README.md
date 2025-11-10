@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Task Manager - Next.js + TypeScript + PrimeReact
 
-## Getting Started
+Una aplicación completa de gestión de tareas construida con Next.js, TypeScript, PrimeReact, Zustand, y SQLite.
 
-First, run the development server:
+## 🚀 Características
 
+- ✅ **CRUD completo** de tareas (Crear, Leer, Actualizar, Eliminar)
+- 🎨 **UI moderna** con PrimeReact y Tailwind CSS
+- 📱 **Responsive** y adaptable a móviles
+- 🔍 **Búsqueda** en tiempo real
+- 🎯 **Filtros** por estado (Todas, Pendientes, Completadas)
+- ✨ **Validación de formularios** con Zod y React Hook Form
+- 💾 **Persistencia** con SQLite (better-sqlite3)
+- 🎭 **Gestión de estado** con Zustand
+- 🎪 **Iconos** con Lucide React
+- 📝 **TypeScript** para type safety
+
+## 🛠️ Tecnologías
+
+### Frontend
+- **Next.js 16** (App Router)
+- **React 19**
+- **TypeScript**
+- **PrimeReact** - Componentes UI
+- **Tailwind CSS** - Estilos
+- **Zustand** - State Management
+- **React Hook Form** - Manejo de formularios
+- **Zod** - Validación de esquemas
+- **Lucide React** - Iconos
+
+### Backend
+- **Next.js API Routes** - REST API
+- **better-sqlite3** - Base de datos SQLite
+
+## 📋 Requisitos Previos
+
+- Node.js 18+ 
+- pnpm, npm, o yarn
+
+## 🔧 Instalación
+
+1. Clona el repositorio:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <tu-repo-url>
+cd next-tasks
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Instala las dependencias:
+```bash
+pnpm install
+# o
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Crea el archivo de variables de entorno:
+```bash
+cp .env.local.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Ejecución
 
-## Learn More
+### Modo Desarrollo
+```bash
+pnpm dev
+# o
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Modo Producción
+```bash
+pnpm build
+pnpm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📁 Estructura del Proyecto
 
-## Deploy on Vercel
+```
+next-tasks/
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   └── tasks/
+│   │   │       ├── route.ts          # GET, POST /api/tasks
+│   │   │       └── [id]/route.ts     # PUT, DELETE /api/tasks/:id
+│   │   ├── layout.tsx                # Layout con PrimeReact CSS
+│   │   ├── page.tsx                  # Página principal
+│   │   └── globals.css               # Estilos globales
+│   ├── components/
+│   │   ├── TaskList.tsx              # Lista con filtros y búsqueda
+│   │   ├── TaskItem.tsx              # Item individual
+│   │   └── TaskForm.tsx              # Formulario crear/editar
+│   ├── lib/
+│   │   └── db.ts                     # Acceso a SQLite
+│   └── store/
+│       └── taskStore.ts              # Store Zustand
+├── .env.local.example                # Ejemplo de variables
+└── package.json
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎯 API Endpoints
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `GET /api/tasks` - Obtener todas las tareas
+- `POST /api/tasks` - Crear tarea
+- `PUT /api/tasks/:id` - Actualizar tarea
+- `DELETE /api/tasks/:id` - Eliminar tarea
+
+## 📝 Variables de Entorno
+
+```env
+DATABASE_FILE=./data.db
+NEXT_PUBLIC_API_URL=
+```
+
+## 👨‍💻 Autor
+
+Dante Lugo
+

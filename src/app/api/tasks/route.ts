@@ -3,10 +3,14 @@ import { getAllTasks, createTask, Task } from "../../../lib/db";
 
 export async function GET() {
   try {
-    const tasks = getAllTasks();
+    const tasks = await getAllTasks();
     return NextResponse.json(tasks);
-  } catch {
-    return NextResponse.json({ error: "Failed to get tasks" }, { status: 500 });
+  } catch (error) {
+    console.error("Error in GET /api/tasks:", error);
+    return NextResponse.json({ 
+      error: "Failed to get tasks",
+      details: error instanceof Error ? error.message : String(error)
+    }, { status: 500 });
   }
 }
 
@@ -21,9 +25,13 @@ export async function POST(request: Request) {
       description: body.description ?? null,
       completed: body.completed ? 1 : 0,
     };
-    const created = createTask(newTask);
+    const created = await createTask(newTask);
     return NextResponse.json(created, { status: 201 });
-  } catch {
-    return NextResponse.json({ error: "Failed to create task" }, { status: 500 });
+  } catch (error) {
+    console.error("Error in POST /api/tasks:", error);
+    return NextResponse.json({ 
+      error: "Failed to create task",
+      details: error instanceof Error ? error.message : String(error)
+    }, { status: 500 });
   }
 }

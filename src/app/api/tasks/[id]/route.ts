@@ -7,11 +7,15 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   if (Number.isNaN(id)) return NextResponse.json({ error: "Invalid id" }, { status: 400 });
   try {
     const body = await request.json();
-    const updated = updateTask(id, body);
+    const updated = await updateTask(id, body);
     if (!updated) return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json(updated);
-  } catch {
-    return NextResponse.json({ error: "Failed to update" }, { status: 500 });
+  } catch (error) {
+    console.error("Error in PUT /api/tasks/:id:", error);
+    return NextResponse.json({ 
+      error: "Failed to update",
+      details: error instanceof Error ? error.message : String(error)
+    }, { status: 500 });
   }
 }
 
@@ -20,10 +24,14 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
   const id = Number(idStr);
   if (Number.isNaN(id)) return NextResponse.json({ error: "Invalid id" }, { status: 400 });
   try {
-    const ok = deleteTask(id);
+    const ok = await deleteTask(id);
     if (!ok) return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json({ success: true });
-  } catch {
-    return NextResponse.json({ error: "Failed to delete" }, { status: 500 });
+  } catch (error) {
+    console.error("Error in DELETE /api/tasks/:id:", error);
+    return NextResponse.json({ 
+      error: "Failed to delete",
+      details: error instanceof Error ? error.message : String(error)
+    }, { status: 500 });
   }
 }
