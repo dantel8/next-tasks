@@ -17,7 +17,7 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemP
   const isCompleted = task.completed === 1 || task.completed === true;
 
   return (
-    <Card className="mb-3 shadow-sm">
+    <Card className="mb-3 !rounded-3xl !bg-white/90 backdrop-blur-sm shadow-md">
       <div className="flex items-start gap-3">
         <Checkbox
           checked={isCompleted}

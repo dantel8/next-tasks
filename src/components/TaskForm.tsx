@@ -70,9 +70,9 @@ export default function TaskForm({ task, onClose }: TaskFormProps) {
       onHide={onClose}
       modal
       draggable={false}
+      className="max-md:!w-[95%]"
     >
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        {/* Title Field */}
         <div className="flex flex-col gap-2">
           <label htmlFor="title" className="font-semibold">
             Title <span className="text-red-500">*</span>
@@ -94,7 +94,6 @@ export default function TaskForm({ task, onClose }: TaskFormProps) {
           )}
         </div>
 
-        {/* Description Field */}
         <div className="flex flex-col gap-2">
           <label htmlFor="description" className="font-semibold">
             Description
@@ -117,7 +116,6 @@ export default function TaskForm({ task, onClose }: TaskFormProps) {
           )}
         </div>
 
-        {/* Actions */}
         <div className="flex justify-end gap-2 pt-4">
           <Button
             type="button"
@@ -126,6 +124,7 @@ export default function TaskForm({ task, onClose }: TaskFormProps) {
             severity="secondary"
             onClick={onClose}
             outlined
+            className="flex gap-3"
           />
           <Button
             type="submit"
@@ -133,6 +132,7 @@ export default function TaskForm({ task, onClose }: TaskFormProps) {
             icon={<Save size={16} />}
             severity="success"
             loading={isSubmitting}
+            className="flex gap-3 !bg-linear-to-r from-[#0A6AF7] to-[#DE78FF] !border-0"
           />
         </div>
       </form>
