@@ -54,24 +54,71 @@ npm install
 
 3. Crea el archivo de variables de entorno:
 ```bash
+# En Windows (PowerShell)
+Copy-Item .env.local.example .env.local
+
+# En Linux/Mac
 cp .env.local.example .env.local
 ```
 
-## 🚀 Ejecución
+4. (Opcional) Configura las variables de entorno en `.env.local`:
+```env
+DATABASE_FILE=./data.db
+NEXT_PUBLIC_API_URL=
+```
+
+## 🚀 Ejecución Local
 
 ### Modo Desarrollo
+
+1. Inicia el servidor de desarrollo:
 ```bash
 pnpm dev
 # o
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+2. Abre tu navegador en [http://localhost:3000](http://localhost:3000)
+
+3. La aplicación se recargará automáticamente cuando hagas cambios en el código
+
+4. La base de datos SQLite (`data.db`) se creará automáticamente en la raíz del proyecto al hacer la primera petición a la API
 
 ### Modo Producción
+
+1. Construye la aplicación optimizada:
 ```bash
 pnpm build
+# o
+npm run build
+```
+
+2. Inicia el servidor de producción:
+```bash
 pnpm start
+# o
+npm start
+```
+
+3. La aplicación estará disponible en [http://localhost:3000](http://localhost:3000)
+
+### Comandos Útiles
+
+```bash
+# Limpiar caché de Next.js
+rm -rf .next
+
+# Limpiar node_modules y reinstalar
+rm -rf node_modules
+pnpm install
+
+# Ejecutar linter
+pnpm lint
+# o
+npm run lint
+
+# Ver la base de datos (requiere sqlite3 CLI)
+sqlite3 data.db "SELECT * FROM tasks;"
 ```
 
 ## 📁 Estructura del Proyecto
@@ -112,6 +159,19 @@ next-tasks/
 DATABASE_FILE=./data.db
 NEXT_PUBLIC_API_URL=
 ```
+
+## 📷 Capturas de pantalla
+
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
+![alt text](image-3.png)
+![alt text](image-4.png)
+![alt text](image-5.png)
+![alt text](image-6.png)
+![alt text](image-7.png)
+![alt text](image-8.png)
+![alt text](image-9.png)
 
 ## 👨‍💻 Autor
 

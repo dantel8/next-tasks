@@ -18,8 +18,9 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemP
 
   return (
     <Card className="mb-3 !rounded-3xl !bg-white/90 backdrop-blur-sm shadow-md">
-      <div className="flex items-start gap-3">
-        <Checkbox
+      <div className="flex items-start gap-3 max-md:flex-col">
+        <div className="flex gap-3">
+          <Checkbox
           checked={isCompleted}
           onChange={() => task.id && onToggle(task.id, !isCompleted)}
           className="mt-1"
@@ -30,7 +31,7 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemP
             {task.title}
           </h3>
           {task.description && (
-            <p className={`text-sm mt-1 ${isCompleted ? "line-through text-gray-400" : "text-gray-600"}`}>
+            <p className={`text-sm mt-1 max-md:line-clamp-3 ${isCompleted ? "line-through text-gray-400" : "text-gray-600"}`}>
               {task.description}
             </p>
           )}
@@ -40,8 +41,9 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemP
             </p>
           )}
         </div>
+        </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 max-md:justify-end w-full">
           <Button
             icon={<Pencil size={16} />}
             rounded

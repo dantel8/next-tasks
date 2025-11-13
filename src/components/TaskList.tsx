@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { SelectButton } from "primereact/selectbutton";
+import { Dialog } from "primereact/dialog";
 import { Plus, Search, NotebookText } from "lucide-react";
 import TaskItem from "@/components/TaskItem";
 import TaskForm from "@/components/TaskForm";
@@ -27,6 +28,10 @@ export default function TaskList() {
 
   const [showForm, setShowForm] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [deleteDialog, setDeleteDialog] = useState<{ visible: boolean; taskId: number | null }>({
+    visible: false,
+    taskId: null,
+  });
 
   useEffect(() => {
     fetchTasks();
@@ -37,9 +42,18 @@ export default function TaskList() {
   };
 
   const handleDelete = (id: number) => {
-    if (confirm("Are you sure you want to delete this task?")) {
-      deleteTask(id);
+    setDeleteDialog({ visible: true, taskId: id });
+  };
+
+  const confirmDelete = () => {
+    if (deleteDialog.taskId) {
+      deleteTask(deleteDialog.taskId);
     }
+    setDeleteDialog({ visible: false, taskId: null });
+  };
+
+  const cancelDelete = () => {
+    setDeleteDialog({ visible: false, taskId: null });
   };
 
   const handleEdit = (task: Task) => {
@@ -69,7 +83,7 @@ export default function TaskList() {
           icon={<Plus size={18} />}
           onClick={() => setShowForm(true)}
           severity="success"
-          className="!bg-linear-to-r from-[#0A6AF7] to-[#DE78FF] !border-0 max-md:!fixed max-md:bottom-10 max-md:right-5 max-md:!rounded-full max-md:!w-14 max-md:!h-14 max-md:!p-0 max-md:items-center max-md:justify-center"
+          className="!bg-linear-to-r from-[#0A6AF7] to-[#DE78FF] !border-0 max-md:!fixed max-md:bottom-10 max-md:right-5 max-md:!rounded-full max-md:!w-14 max-md:!h-14 max-md:!p-0 max-md:items-center max-md:justify-center max-md:z-20"
           pt={{
             label: { className: "max-md:hidden" }
           }}
@@ -142,6 +156,35 @@ export default function TaskList() {
           onClose={handleCloseForm}
         />
       )}
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        header="Delete Task"
+        visible={deleteDialog.visible}
+        style={{ width: "400px" }}
+        onHide={cancelDelete}
+        modal
+        draggable={false}
+        footer={
+          <div className="flex justify-end gap-2">
+            <Button
+              label="Cancel"
+              severity="secondary"
+              onClick={cancelDelete}
+              outlined
+            />
+            <Button
+              label="Delete"
+              severity="danger"
+              onClick={confirmDelete}
+            />
+          </div>
+        }
+      >
+        <p className="m-0">
+          Are you sure you want to delete this task? This action cannot be undone.
+        </p>
+      </Dialog>
     </div>
   );
 }
